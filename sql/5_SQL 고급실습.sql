@@ -123,31 +123,69 @@ SELECT sum(`sale`) FROM `sales` WHERE `sale` >= 50000 and `YEAR` = 2018 AND `mon
 SELECT MAX(`sale`) FROM `sales` WHERE `year`=2020;
 
 #실습하기 5-7
-
-
+SELECT * FROM `sales`;
+SELECT * FROM `sales` GROUP BY `uid`;
+SELECT * FROM `sales` GROUP BY `year`, `uid`;
+SELECT * FROM `sales` GROUP BY `uid`, `year`;
+SELECT `uid`, COUNT(*)  AS `건수` FROM  `sales` GROUP BY `uid`; 
+select `uid`, SUM(sale) AS `합계` FROM `sales` GROUP BY `uid`; 
+SELECT `uid`, AVG(sale) AS `평균` FROM `sales` GROUP BY `uid`;
+SELECT `uid`, `year`, SUM(sale) AS `합계` FROM `sales` GROUP BY `uid`, `year`;
+SELECT `uid`, `year`, SUM(sale) AS `합계` FROM `sales` GROUP BY `uid`, `year` ORDER BY `year` ASC, `합계` DESC; 
+SELECT `uid`, `year`, SUM(sale) AS '합계' FROM `sales` WHERE `sale` > 50000 
+GROUP BY `uid`, `year` ORDER BY `year` ASC, `합계`DESC;
 
 
 #실습하기 5-8
+SELECT `uid`, SUM(sale) AS `합계` FROM `sales` GROUP BY `uid` HAVING SUM(sale) > 200000;
+SELECT `uid`,`year`, AVG(sale) AS `평균` FROM `sales` 
+WHERE `sale` > 100000 GROUP BY `uid`, `year` HAVING SUM(sale) > 200000 ORDER BY `평균` desc;
 
 
 
 
 #실습하기 5-9
-
-
-
-
+CREATE TABLE `sales2` LIKE `sales`;
+INSERT INTO `sales2` SELECT * FROM `sales`;
+UPDATE `sales2` SET `year` = `year` + 3;
 
 #실습하기 5-10
+SELECT * FROM `sales2` UNION SELECT * FROM `sales`;
+(SELECT * FROM `sales2`) UNION (SELECT * FROM `sales`);
+
+SELECT `uid`, `year`, `sale` FROM `sales`
+union
+SELECT `uid`, `year`, `sale` FROM `sales2`;
+
+SELECT `uid`, `year`, `sale` FROM `sales`
+union
+SELECT `uid`, `year`, `sale` FROM `sales2`;
+
+
 
 
 
 
 
 #실습하기 5-11
-
+SELECT * FROM `sales` JOIN `member` ON sales.uid = member.uid;
 
 
 
 
 #실습하기 5-12
+SELECT * FROM `sales` JOIN `member` ON `sales`.uid = `member`.uid;
+SELECT * FROM `sales` LEFT JOIN `member` ON `sales`.uid = `member`.uid;
+SELECT * FROM `sales` RIGHT JOIN `member` ON `sales`.uid = `member`.uid ;
+SELECT * FROM `member` RIGHT JOIN `sales` ON `member`.uid = `sales`.uid ;
+SELECT * FROM `member` LEFT JOIN `sales` ON `member`.uid = `sales`.uid ;
+
+
+
+
+
+
+
+
+
+
