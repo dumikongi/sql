@@ -105,3 +105,32 @@ INSERT INTO `sample35` VALUE ( 3, 1980, 1, "장");
 
 
 SELECT `unit`, CONCAT(quantity, unit) FROM `sample35`;
+
+SUBSTRING ('123456789', 2, 3);
+
+CREATE TABLE `sample37`(
+`a` TINYINT 
+);
+
+INSERT INTO `sample37` VALUE (1);
+INSERT INTO `sample37` VALUE (2);
+INSERT INTO `sample37` VALUE ();
+
+
+SELECT `a`, case when a is null then 0 ELSE a END "a(null=0)" FROM `sample37`;
+SELECT `a`, case when a IS 2 then 4 ELSE a END "a(null->)" FROM `sample37`;
+SELECT `a`, COALESCE(a,0) FROM `sample37`;
+SELECT `a`, COALESCE(a,5) FROM `sample37`;
+
+CREATE TABLE `sample38`(
+`코드` TINYINT ,
+`성별` VARCHAR(3)
+);
+
+INSERT INTO `sample38` VALUE (1, "남자");
+INSERT INTO `sample38` VALUE (2, "여자");
+INSERT INTO `sample38` (`성별`) VALUE ('미지정');
+
+SELECT a AS `코드` when a =1 then '남자' when a = 2 then '여자' ELSE '미지정'
+      END AS `성별` FROM `sample37`;
+
